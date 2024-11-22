@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="icon" type="image/png" href="logo.png">
+
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1" >
 	<title> Test game</title>
@@ -27,33 +29,58 @@ https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css
 <main>
 <div id="game_page" class="container-fluid">
 	<div class="row justify-content-center px-0 py-5">
-        <div class="col-lg-5 col-md-5 col-sm-12">
-            <h2 class="bg-dark mb-0 p-2" style="color: #5cd595; border:solid 1px #5cd595;">Map</h2>
+        <div class="col-lg-4 col-md-4 col-sm-12">
+            <h2 class="bg-dark mb-0 p-2" style="color: #5cd595; border:solid 1px #5cd595;">
+            Map</h2>
             <div id="custom-map" style="width:100%;height:28.8rem;"></div>
         </div>
-        <div class="col-lg-7 col-md-7 col-sm-12">
+        <div class="col-lg-8 col-md-8 col-sm-12">
             <div class="col-12 bg-dark">
                 <div class="p-2" style="border:solid 2px #5cd595;">
-                    <h3 class=" mb-0 text-dark" style="background-color: #5cd595; padding-left: 8px;">Threat</h3>
+                    <h3 class=" mb-0 text-dark" style="background-color: #5cd595; padding-left: 8px;">
+                    Threat</h3>
                 </div>
             </div>
-            <div class="col-12 bg-dark" style="min-height: 10rem;">
-                <h3>Menu</h3>
+            <div class="col-12 bg-dark border border-success" style="min-height: 10rem;">
+            <div class="container bg-dark p-2 d-flex" style="min-height: 10rem;">
+                <div class="col-6 px-2 border border-success" style="color: #5cd595;">
+                <h5>Menu options</h5>
+                    <div class="text-success">
+
+                    </div>
+                </div>
+
+                <div class="col-6 px-2 border border-success" style="color: #5cd595;">
+                <h5>Game status</h5>
+                    <div class="text-success">
+
+                    </div>
+                </div>
+            </div>
             </div>
             <div class="container bg-dark p-2">
                 <div class="d-flex">
                     <div class="col-6 text-center">
-                        <button class="rounded-3 bg-dark" style="padding: 0.1rem 3.5rem 0.1rem 3.5rem; border:solid 2px #5cd595; color: #5cd595;">Travel to</button>
+                        <button class="bg-dark" style="padding: 0.1rem 3.5rem 0.1rem 3.5rem; border:solid 1px #5cd595; color: #5cd595;">
+                        Travel to</button>
                     </div>
                     <div class="col-6 text-center">
-                        <button class="rounded-3 bg-dark" style="padding: 0.1rem 3.5rem 0.1rem 3.5rem; border:solid 2px #5cd595; color: #5cd595;">Location</button>
+                        <button class="bg-dark" style="padding: 0.1rem 3.5rem 0.1rem 3.5rem; border:solid 1px #5cd595; color: #5cd595;">
+                        Location</button>
                     </div>
                 </div>
             </div>
 
-            <div class="col-12 bg-dark text-white mh-50 py-2" style="min-height: 16rem;">
-                <h6 class="p-2" style="background-color: #5cd595;">CMD</h6>
+            <div class="col-12 bg-dark text-white mh-50 py-2 border border-success" style="min-height: 16rem;">
+                <h6 class="p-2" style="background-color: #5cd595;">
+                CMD</h6>
+                <div class="container bg-dark p-2">
+                <p id="mission" class="text-success">
+                    Mission...
+                </p>
+                </div>
             </div>
+
         </div>
     </div>
 </div>
@@ -62,14 +89,14 @@ https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css
 <footer></footer>
 </div>
 <script>
-const map = L.map('custom-map').setView([60.31826, 24.94900], 13);
+var map = L.map('custom-map').setView([60.31826, 24.94900], 13);
 
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 18,
         attribution:
           '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       }).addTo(map);
-//const marker = L.marker([60.31826, 24.94900]).addTo(map);
+//var marker = L.marker([60.31826, 24.94900]).addTo(map);
 </script>
 </body>
 </html>
