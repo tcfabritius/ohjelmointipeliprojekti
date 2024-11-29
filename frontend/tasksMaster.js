@@ -30,6 +30,7 @@ C: Error',
 __________________________________________________________________________________________________________________
 
 TASK 2.
+
 INSERT INTO task (text, answer, travelprompt, pay) VALUES
 (
 'INPUT:
@@ -51,6 +52,7 @@ C: Calculates factorial',
 __________________________________________________________________________________________________________________
 
 TASK 3.
+
 INSERT INTO task (text, answer, travelprompt, pay) VALUES
 (
 'INPUT:
