@@ -219,7 +219,7 @@ TASK 32.
 
 INSERT INTO task (text, answer, travelprompt, pay) VALUES
 (
-    'INPUT:
+'INPUT:
 <br/>
 class Animal:
 <br/>
@@ -258,5 +258,27 @@ C. Raises an error: AttributeError
     'HELPER.BOT: My analysis indicates that the risk of capture is getting high. I recommend moving out soon.',
     '200'
 );
+
+__________________________________________________________________________________________________________________
+
+TASK 32.
+
+INSERT INTO task (text, answer, travelprompt, pay) VALUES
+(
+'INPUT:
+<br/>
+What is the output of the following Python code?
+<br/>
+<br/>
+name = "Alice"
+<br/>
+print(name[1])
+<br/>
+<br/>
+A) A
+<br/>
+B) l
+<br/>
+C) Error
 
 */
