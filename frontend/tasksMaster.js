@@ -284,4 +284,31 @@ C) Error,
 'HELPER.BOT: My analysis indicates that the risk of capture is getting high. I recommend moving out soon.',
 '200'
 
+__________________________________________________________________________________________________________________
+
+TASK 34
+
+INSERT INTO task (text, answer, travelprompt, pay) VALUES
+(
+'INPUT:
+<br/>
+What will be the value of result after executing the following Python code?
+<br/>
+<br/>
+a = 8
+<br/>
+b = 3
+<br/>
+result = a // b
+<br/>
+<br/>
+A) 2
+<br/>
+B) 2.6667
+<br/>
+C) 24,
+'A',
+'HELPER.BOT: My analysis indicates that the risk of capture is getting high. I recommend moving out soon.',
+'200'
+
 */
