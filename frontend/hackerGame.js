@@ -190,8 +190,20 @@ async function newAirports(newCountry) {
         let airportLocation = newCountry;
         const response2 = await fetch(`http://timfabritius1.pythonanywhere.com/travel_menu/${name}/${airportLocation}`);
         const countryData = await response2.json();
-        console.log(countryData);
-        playerMenu(countryData);
+        //console.log(countryData);
+        if (countryData.status === 404){
+            let clearDiv = document.getElementById("outerMenu");
+        if (clearDiv.firstChild) {
+            clearDiv.removeChild(clearDiv.firstChild);
+        }
+        let menuDiv = document.createElement("div");
+        menuDiv.setAttribute("id", "menu");
+        clearDiv.appendChild(menuDiv);
+        document.getElementById("menu").innerHTML = "No airports found for the specified country";
+        }
+        else {
+            playerMenu(countryData);
+        }
     } catch (error) {
         console.log(error.message);
     }
@@ -260,7 +272,7 @@ async function playerMenu(newMenu) {
     }
     else{
         currentMenu = newMenu;
-        await createAirportList(currentMenu)
+        currentMenu = await createAirportList(currentMenu);
     }
     menu.append(currentMenu);
 }
@@ -268,7 +280,6 @@ async function playerMenu(newMenu) {
 
 
 //Main
-
 getCurrentLocation(name);
 modifyThreatBar();
 tableCreate();
