@@ -261,7 +261,7 @@ C. Raises an error: AttributeError
 
 __________________________________________________________________________________________________________________
 
-TASK 32.
+TASK 33.
 
 INSERT INTO task (text, answer, travelprompt, pay) VALUES
 (
