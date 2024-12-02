@@ -34,6 +34,44 @@ locQuery.addEventListener("submit", async function changeLocation(evt) {
     }
 });
 
+//change country
+const srcBtn = document.querySelector("#srcBtn");
+srcBtn.addEventListener("click", async function changeCountry(evt) {
+    evt.preventDefault();
+    let selectCountry =document.createElement("select");
+    selectCountry.setAttribute("id", "selectC");
+    selectCountry.setAttribute("size", "7");
+    try {
+        const responseC = await fetch("http://timfabritius1.pythonanywhere.com/maat");
+        const countriesData = await responseC.json();
+        console.log(countriesData);
+        let countries = countriesData.countries;
+        for (let i = 0; i < countries.length; i++){
+            let option = document.createElement("option");
+            option.value = countries[i].name;
+            option.appendChild(document.createTextNode(countries[i].name));
+            selectCountry.appendChild(option);
+        }
+            let clearDiv = document.getElementById("outerMenu");
+    if (clearDiv.firstChild) {
+        clearDiv.removeChild(clearDiv.firstChild);
+    }
+    let menuDiv = document.createElement("div");
+    menuDiv.setAttribute("id", "menu");
+    clearDiv.appendChild(menuDiv);
+    menu.append(selectCountry);
+    //get player selection
+    selectCountry.onchange = function() {
+        let selectedOption = selectCountry.options[selectCountry.selectedIndex];
+        console.log(selectedOption.value);
+        return selectedOption.value;
+    }
+
+    } catch (error) {
+        console.log(error.message);
+    }
+});
+
 // get player data function
 async function getPlayer(name){
     try {
@@ -45,6 +83,7 @@ async function getPlayer(name){
         console.log(error.message);
     }
 }
+
 // thread bar & change color function
 async function modifyThreatBar() {
     const threatBar = document.getElementById("threat-bar");
@@ -99,6 +138,57 @@ async function modifyThreatBar() {
             }
         }
 }
+
+// create airport list
+async function createAirportList(){
+        let selectAirports =document.createElement("select");
+        selectAirports.setAttribute("id", "selectA");
+        selectAirports.setAttribute("size", "7");
+        selectAirports.classList.add("container");
+        let airportsData = await playerAirports();
+        console.log(airportsData);
+        let airports = airportsData.airports;
+        for (let i = 0; i < airports.length; i++){
+            let option = document.createElement("option");
+            option.classList.add("row");
+            option.classList.add("countryAports");
+
+            let value1 = document.createElement("div");
+            value1.classList.add("col-4");
+            value1.classList.add("ps-0");
+            let value1col = document.createElement("p");
+            value1col.appendChild(document.createTextNode(airports[i].icao_code + " "));
+            value1.appendChild(value1col);
+
+            let value2 = document.createElement("div");
+            value2.classList.add("col-8");
+            let value2col = document.createElement("p");
+            value2col.appendChild(document.createTextNode(airports[i].name));
+            value2.appendChild(value2col);
+
+            option.appendChild(value1);
+            option.appendChild(value2);
+            selectAirports.appendChild(option);
+        }
+        return selectAirports;
+}
+
+// current country airports
+async function playerAirports() {
+    const playerData = await getPlayer(name);
+    let playerLocation = playerData.location;
+    try {
+        const response1 = await fetch("http://timfabritius1.pythonanywhere.com/kentta/"+ playerLocation);
+        const locationData = await response1.json();
+        let airportLocation = locationData.iso_country;
+        const response2 = await fetch(`http://timfabritius1.pythonanywhere.com/travel_menu/${name}/${airportLocation}`);
+        const countryData = await response2.json();
+        return countryData;
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
 // player status table
 async function tableCreate() {
     let clearDiv = document.getElementById("outerStatus");
@@ -131,7 +221,25 @@ async function tableCreate() {
     status.append(tbl);
 }
 
+// current menu list
+async function playerMenu() {
+    let clearDiv = document.getElementById("outerMenu");
+    if (clearDiv.firstChild) {
+        clearDiv.removeChild(clearDiv.firstChild);
+    }
+    let menuDiv = document.createElement("div");
+    menuDiv.setAttribute("id", "menu");
+    clearDiv.appendChild(menuDiv);
+
+    let currentMenu = await createAirportList();
+    menu.append(currentMenu);
+}
+
+
+
 //Main
+
 getCurrentLocation(name);
 modifyThreatBar();
 tableCreate();
+playerMenu();
