@@ -177,7 +177,36 @@ TASK 31.
 
 INSERT INTO task (text, answer, travelprompt, pay)
 VALUES (
-    'INPUT: Write a Python function that takes a list of integers as input and returns the sum of the squares of the integers in the list. For example: If the input is [1, 2, 3], the output should be 1^2 + 2^2 + 3^2 = 14. Which of the following implementations is correct?\n\nAWAITING OUTPUT:\nA: def sum_of_squares(numbers):\n    return sum(x ** 2 for x in numbers)\nB: def sum_of_squares(numbers):\n    return sum(x * 2 for x in numbers)\nC: def sum_of_squares(numbers):\n    total = 0\n    for x in numbers:\n        total += x\n    return total',
+'INPUT:
+<br/>
+Write a Python function that takes a list of integers as input
+<br/>
+and returns the sum of the squares of the integers in the list.
+<br/>
+For example: If the input is [1, 2, 3], the output should be 1^2 + 2^2 + 3^2 = 14.
+<br/>
+Which of the following implementations is correct?
+<br/>
+<br/>
+AWAITING OUTPUT:
+<br/>
+A: def sum_of_squares(numbers):
+<br/>
+  return sum(x ** 2 for x in numbers)
+<br/>
+B: def sum_of_squares(numbers):
+<br/>
+  return sum(x * 2 for x in numbers)
+<br/>
+C: def sum_of_squares(numbers):
+<br/>
+  total = 0
+<br/>
+    for x in numbers:
+<br/>
+      total += x
+<br/>
+      return total',
     'A',
     'HELPER.BOT: My analysis indicates that the risk of capture is getting high. I recommend moving out soon.',
     '200'
@@ -191,25 +220,38 @@ TASK 32.
 INSERT INTO task (text, answer, travelprompt, pay) VALUES
 (
     'INPUT:
+<br/>
 class Animal:
+<br/>
     def __init__(self, name):
+<br/>
         self.name = name
-
+<br/>
     def speak(self):
+<br/>
         return "Some sound"
-
+<br/>
 class Dog(Animal):
+<br/>
     def speak(self):
+<br/>
         return "Woof!"
-
+<br/>
+<br/>
 # Create an object of Dog
+<br/>
 dog = Dog("Buddy")
+<br/>
 What does the following code output?
-
+<br/>
+<br/>
 print(dog.speak())
-
+<br/>
+<br/>
 A. Outputs: "Woof!"
+<br/>
 B. Outputs: "Some sound"
+<br/>
 C. Raises an error: AttributeError
 ',
     'A',
