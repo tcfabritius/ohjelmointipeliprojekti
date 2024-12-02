@@ -540,6 +540,8 @@ ________________________________________________________________________________
 
 Lisäämättömät:
 
+TASK 31.
+
 INSERT INTO task (text, answer, travelprompt, pay)
 VALUES (
     'INPUT: Write a Python function that takes a list of integers as input and returns the sum of the squares of the integers in the list. For example: If the input is [1, 2, 3], the output should be 1^2 + 2^2 + 3^2 = 14. Which of the following implementations is correct?\n\nAWAITING OUTPUT:\nA: def sum_of_squares(numbers):\n    return sum(x ** 2 for x in numbers)\nB: def sum_of_squares(numbers):\n    return sum(x * 2 for x in numbers)\nC: def sum_of_squares(numbers):\n    total = 0\n    for x in numbers:\n        total += x\n    return total',
