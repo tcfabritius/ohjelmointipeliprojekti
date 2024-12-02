@@ -70,9 +70,477 @@ C: Error',
 
 __________________________________________________________________________________________________________________
 
-Lisäämättömät:
+IMPLEMENT FROM HERE
 
 TASK 4.
+
+INSERT INTO task (text, answer, travelprompt, pay) VALUES
+(
+'INPUT:
+let x = 10;
+let y = '5';
+console.log(x+y);
+
+AWAITING OUTPUT:
+A: "105"
+B: 15
+C: "15"',
+'"105"',
+'HELPER.BOT: My analysis indicates that the risk of capture is getting high. I recommend moving out soon.',
+'200'
+);
+
+__________________________________________________________________________________________________________________
+
+TASK .
+
+INSERT INTO task (text, answer, travelprompt, pay) VALUES
+(
+'INPUT:
+
+AWAITING OUTPUT:
+A:
+B:
+C:,
+'',
+'',
+''
+);
+
+__________________________________________________________________________________________________________________
+
+TASK .
+
+INSERT INTO task (text, answer, travelprompt, pay) VALUES
+(
+'INPUT:
+
+AWAITING OUTPUT:
+A:
+B:
+C:,
+'',
+'',
+''
+);
+
+__________________________________________________________________________________________________________________
+
+TASK .
+
+INSERT INTO task (text, answer, travelprompt, pay) VALUES
+(
+'INPUT:
+
+AWAITING OUTPUT:
+A:
+B:
+C:,
+'',
+'',
+''
+);
+
+__________________________________________________________________________________________________________________
+
+TASK .
+
+INSERT INTO task (text, answer, travelprompt, pay) VALUES
+(
+'INPUT:
+
+AWAITING OUTPUT:
+A:
+B:
+C:,
+'',
+'',
+''
+);
+
+__________________________________________________________________________________________________________________
+
+TASK .
+
+INSERT INTO task (text, answer, travelprompt, pay) VALUES
+(
+'INPUT:
+
+AWAITING OUTPUT:
+A:
+B:
+C:,
+'',
+'',
+''
+);
+
+__________________________________________________________________________________________________________________
+
+TASK .
+
+INSERT INTO task (text, answer, travelprompt, pay) VALUES
+(
+'INPUT:
+
+AWAITING OUTPUT:
+A:
+B:
+C:,
+'',
+'',
+''
+);
+
+__________________________________________________________________________________________________________________
+
+TASK .
+
+INSERT INTO task (text, answer, travelprompt, pay) VALUES
+(
+'INPUT:
+
+AWAITING OUTPUT:
+A:
+B:
+C:,
+'',
+'',
+''
+);
+
+__________________________________________________________________________________________________________________
+
+TASK .
+
+INSERT INTO task (text, answer, travelprompt, pay) VALUES
+(
+'INPUT:
+
+AWAITING OUTPUT:
+A:
+B:
+C:,
+'',
+'',
+''
+);
+
+__________________________________________________________________________________________________________________
+
+TASK .
+
+INSERT INTO task (text, answer, travelprompt, pay) VALUES
+(
+'INPUT:
+
+AWAITING OUTPUT:
+A:
+B:
+C:,
+'',
+'',
+''
+);
+
+__________________________________________________________________________________________________________________
+
+TASK .
+
+INSERT INTO task (text, answer, travelprompt, pay) VALUES
+(
+'INPUT:
+
+AWAITING OUTPUT:
+A:
+B:
+C:,
+'',
+'',
+''
+);
+
+__________________________________________________________________________________________________________________
+
+TASK .
+
+INSERT INTO task (text, answer, travelprompt, pay) VALUES
+(
+'INPUT:
+
+AWAITING OUTPUT:
+A:
+B:
+C:,
+'',
+'',
+''
+);
+
+__________________________________________________________________________________________________________________
+
+TASK .
+
+INSERT INTO task (text, answer, travelprompt, pay) VALUES
+(
+'INPUT:
+
+AWAITING OUTPUT:
+A:
+B:
+C:,
+'',
+'',
+''
+);
+
+__________________________________________________________________________________________________________________
+
+TASK .
+
+INSERT INTO task (text, answer, travelprompt, pay) VALUES
+(
+'INPUT:
+
+AWAITING OUTPUT:
+A:
+B:
+C:,
+'',
+'',
+''
+);
+
+__________________________________________________________________________________________________________________
+
+TASK .
+
+INSERT INTO task (text, answer, travelprompt, pay) VALUES
+(
+'INPUT:
+
+AWAITING OUTPUT:
+A:
+B:
+C:,
+'',
+'',
+''
+);
+
+__________________________________________________________________________________________________________________
+
+TASK .
+
+INSERT INTO task (text, answer, travelprompt, pay) VALUES
+(
+'INPUT:
+
+AWAITING OUTPUT:
+A:
+B:
+C:,
+'',
+'',
+''
+);
+
+__________________________________________________________________________________________________________________
+
+TASK .
+
+INSERT INTO task (text, answer, travelprompt, pay) VALUES
+(
+'INPUT:
+
+AWAITING OUTPUT:
+A:
+B:
+C:,
+'',
+'',
+''
+);
+
+__________________________________________________________________________________________________________________
+
+TASK .
+
+INSERT INTO task (text, answer, travelprompt, pay) VALUES
+(
+'INPUT:
+
+AWAITING OUTPUT:
+A:
+B:
+C:,
+'',
+'',
+''
+);
+
+__________________________________________________________________________________________________________________
+
+TASK .
+
+INSERT INTO task (text, answer, travelprompt, pay) VALUES
+(
+'INPUT:
+
+AWAITING OUTPUT:
+A:
+B:
+C:,
+'',
+'',
+''
+);
+
+__________________________________________________________________________________________________________________
+
+TASK .
+
+INSERT INTO task (text, answer, travelprompt, pay) VALUES
+(
+'INPUT:
+
+AWAITING OUTPUT:
+A:
+B:
+C:,
+'',
+'',
+''
+);
+
+__________________________________________________________________________________________________________________
+
+TASK .
+
+INSERT INTO task (text, answer, travelprompt, pay) VALUES
+(
+'INPUT:
+
+AWAITING OUTPUT:
+A:
+B:
+C:,
+'',
+'',
+''
+);
+
+__________________________________________________________________________________________________________________
+
+TASK .
+
+INSERT INTO task (text, answer, travelprompt, pay) VALUES
+(
+'INPUT:
+
+AWAITING OUTPUT:
+A:
+B:
+C:,
+'',
+'',
+''
+);
+
+__________________________________________________________________________________________________________________
+
+TASK .
+
+INSERT INTO task (text, answer, travelprompt, pay) VALUES
+(
+'INPUT:
+
+AWAITING OUTPUT:
+A:
+B:
+C:,
+'',
+'',
+''
+);
+
+__________________________________________________________________________________________________________________
+
+TASK .
+
+INSERT INTO task (text, answer, travelprompt, pay) VALUES
+(
+'INPUT:
+
+AWAITING OUTPUT:
+A:
+B:
+C:,
+'',
+'',
+''
+);
+
+__________________________________________________________________________________________________________________
+
+TASK .
+
+INSERT INTO task (text, answer, travelprompt, pay) VALUES
+(
+'INPUT:
+
+AWAITING OUTPUT:
+A:
+B:
+C:,
+'',
+'',
+''
+);
+
+__________________________________________________________________________________________________________________
+
+TASK .
+
+INSERT INTO task (text, answer, travelprompt, pay) VALUES
+(
+'INPUT:
+
+AWAITING OUTPUT:
+A:
+B:
+C:,
+'',
+'',
+''
+);
+
+__________________________________________________________________________________________________________________
+
+TASK .
+
+INSERT INTO task (text, answer, travelprompt, pay) VALUES
+(
+'INPUT:
+
+AWAITING OUTPUT:
+A:
+B:
+C:,
+'',
+'',
+''
+);
+
+__________________________________________________________________________________________________________________
+
+
+__________________________________________________________________________________________________________________
+
+
+Lisäämättömät:
+
+TASK 31.
 
 INSERT INTO task (text, answer, travelprompt, pay) VALUES
 (
@@ -97,4 +565,35 @@ C: def sum_of_squares(numbers):
 '200'
 );
 
-*/
+__________________________________________________________________________________________________________________
+
+TASK 32.
+
+INSERT INTO task (text, answer, travelprompt, pay) VALUES
+(
+'INPUT:
+class Animal:
+    def __init__(self, name):
+        self.name = name
+
+    def speak(self):
+        return "Some sound"
+
+class Dog(Animal):
+    def speak(self):
+        return "Woof!"
+
+# Create an object of Dog
+dog = Dog("Buddy")
+What does the following code output?
+
+print(dog.speak())
+
+A. Outputs: "Woof!"
+B. Outputs: "Some sound"
+C. Raises an error: AttributeError
+',
+'A',
+'HELPER.BOT: My analysis indicates that the risk of capture is getting high. I recommend moving out soon.',
+'200'
+);*/
