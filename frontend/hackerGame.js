@@ -63,10 +63,15 @@ srcBtn.addEventListener("click", async function changeCountry(evt) {
     //get player selection
     selectCountry.onchange = function() {
         let selectedOption = selectCountry.options[selectCountry.selectedIndex];
-        console.log(selectedOption.value);
-        return selectedOption.value;
+        let countryName = selectedOption.value;
+        //console.log(countryName);
+    for (let i = 0; i < countries.length; i++){
+        if (countries[i].name  === countryName ){
+            //console.log(countries[i].iso_country);
+            newAirports(countries[i].iso_country);
+        }
     }
-
+    }
     } catch (error) {
         console.log(error.message);
     }
@@ -140,12 +145,18 @@ async function modifyThreatBar() {
 }
 
 // create airport list
-async function createAirportList(){
+async function createAirportList(listData){
         let selectAirports =document.createElement("select");
         selectAirports.setAttribute("id", "selectA");
         selectAirports.setAttribute("size", "7");
         selectAirports.classList.add("container");
-        let airportsData = await playerAirports();
+        let airportsData;
+        if (listData === undefined) {
+            airportsData = await playerAirports();
+        }
+        else{
+            airportsData = listData;
+        }
         console.log(airportsData);
         let airports = airportsData.airports;
         for (let i = 0; i < airports.length; i++){
@@ -171,6 +182,19 @@ async function createAirportList(){
             selectAirports.appendChild(option);
         }
         return selectAirports;
+}
+
+// new country airports
+async function newAirports(newCountry) {
+    try {
+        let airportLocation = newCountry;
+        const response2 = await fetch(`http://timfabritius1.pythonanywhere.com/travel_menu/${name}/${airportLocation}`);
+        const countryData = await response2.json();
+        console.log(countryData);
+        playerMenu(countryData);
+    } catch (error) {
+        console.log(error.message);
+    }
 }
 
 // current country airports
@@ -222,7 +246,7 @@ async function tableCreate() {
 }
 
 // current menu list
-async function playerMenu() {
+async function playerMenu(newMenu) {
     let clearDiv = document.getElementById("outerMenu");
     if (clearDiv.firstChild) {
         clearDiv.removeChild(clearDiv.firstChild);
@@ -230,8 +254,14 @@ async function playerMenu() {
     let menuDiv = document.createElement("div");
     menuDiv.setAttribute("id", "menu");
     clearDiv.appendChild(menuDiv);
-
-    let currentMenu = await createAirportList();
+    let currentMenu;
+    if (newMenu === undefined) {
+        currentMenu = await createAirportList();
+    }
+    else{
+        currentMenu = newMenu;
+        await createAirportList(currentMenu)
+    }
     menu.append(currentMenu);
 }
 
