@@ -279,6 +279,9 @@ A) A
 <br/>
 B) l
 <br/>
-C) Error
+C) Error,
+'B',
+'HELPER.BOT: My analysis indicates that the risk of capture is getting high. I recommend moving out soon.',
+'200'
 
 */
