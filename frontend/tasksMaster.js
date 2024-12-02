@@ -540,7 +540,7 @@ ________________________________________________________________________________
 
 Lisäämättömät:
 
-TASK 4.
+TASK 31.
 
 INSERT INTO task (text, answer, travelprompt, pay) VALUES
 (
@@ -565,4 +565,35 @@ C: def sum_of_squares(numbers):
 '200'
 );
 
-*/
+__________________________________________________________________________________________________________________
+
+TASK 32.
+
+INSERT INTO task (text, answer, travelprompt, pay) VALUES
+(
+'INPUT:
+class Animal:
+    def __init__(self, name):
+        self.name = name
+
+    def speak(self):
+        return "Some sound"
+
+class Dog(Animal):
+    def speak(self):
+        return "Woof!"
+
+# Create an object of Dog
+dog = Dog("Buddy")
+What does the following code output?
+
+print(dog.speak())
+
+A. Outputs: "Woof!"
+B. Outputs: "Some sound"
+C. Raises an error: AttributeError
+',
+'A',
+'HELPER.BOT: My analysis indicates that the risk of capture is getting high. I recommend moving out soon.',
+'200'
+);*/
