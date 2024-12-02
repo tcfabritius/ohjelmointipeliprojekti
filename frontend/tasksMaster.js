@@ -311,4 +311,32 @@ C) 24,
 'HELPER.BOT: My analysis indicates that the risk of capture is getting high. I recommend moving out soon.',
 '200'
 
+__________________________________________________________________________________________________________________
+
+TASK 34
+
+INSERT INTO task (text, answer, travelprompt, pay) VALUES
+(
+'INPUT:
+<br/>
+a = [1, 2, 3]
+<br/>
+b = a
+<br/>
+b[0] = 10
+<br/>
+print(a)
+<br/>
+<br/>
+A) [1, 2, 3]
+<br/>
+B) [10, 2, 3]
+<br/>
+C) Error,
+'B',
+'HELPER.BOT: My analysis indicates that the risk of capture is getting high. I recommend moving out soon.',
+'200'
+
+
+
 */
