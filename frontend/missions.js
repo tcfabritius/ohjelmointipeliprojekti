@@ -1,3 +1,6 @@
+let missionId = 1; // Nykyinen tehtävä ID
+let isAnswering = false; // Estää moninkertaiset tapahtumakutsut
+
 async function getMission(id) {
   const missionDiv = document.querySelector("#mission");
   const taskInput = document.querySelector("#tasks");
@@ -11,75 +14,78 @@ async function getMission(id) {
     const response = await fetch("https://timfabritius1.pythonanywhere.com/tehtava/" + id);
 
     if (!response.ok) {
-      throw new Error('Failed to fetch mission data');
+      throw new Error("Failed to fetch mission data");
     }
 
     const jsonData = await response.json();
-    missionDiv.innerHTML = jsonData.text; // Näytetään tehtäväteksti
+    missionDiv.innerHTML = jsonData.text; // Näytetään tehtävän teksti
+    taskInput.value = ""; // Tyhjennetään syötekenttä
 
-    // Päivitetään taskInput-kentän oletusteksti (ei välttämätön mutta esimerkkinä)
-    taskInput.value = ""; // Tyhjennä kenttä jokaisen tehtävän kohdalla
-
-    taskInput.addEventListener("keypress", async function handleTask(event) {
-      if (event.keyCode === 13) { // Enter-näppäin
+    // Kuunnellaan pelaajan vastausta
+    taskInput.onkeypress = async function handleTask(event) {
+      if (event.key === "Enter" && !isAnswering) {
+        isAnswering = true; // Estä kaksoisklikkaukset
         event.preventDefault();
-        try {
-          let response = await fetch("https://timfabritius1.pythonanywhere.com/tehtava/" + id);
 
-          if (!response.ok) {
-            throw new Error('Failed to fetch task data');
-          }
-
-          let jsonData = await response.json();
-
-          if (!jsonData || !jsonData.answer || !jsonData.pay) {
-            console.error('Invalid response data:', jsonData);
-            return;
-          }
-
-          if (taskInput.value === jsonData.answer) {
-            const response1 = await fetch("https://timfabritius1.pythonanywhere.com/bonus/" + name + "/" + jsonData.pay);
-
-            if (!response1.ok) {
-              throw new Error('Failed to fetch bonus data');
-            }
-
-            const jsonData1 = await response1.json();
-            const response2 = await fetch("https://timfabritius1.pythonanywhere.com/taskdone/" + name + "/" + id);
-
-            if (!response2.ok) {
-              throw new Error('Failed to mark task as done');
-            }
-
-            const jsonData2 = await response2.json();
-            missionid++;
-            alert(jsonData1.travelprompt);
-          } else {
-            const response1 = await fetch("https://timfabritius1.pythonanywhere.com/raiseThreat/" + name + "/" + "5");
-
-            if (!response1.ok) {
-              throw new Error('Failed to raise threat');
-            }
-
-            const jsonData1 = await response1.json();
-            console.log(jsonData1); // Process or log the response
-          }
-        } catch (error) {
-          console.error('Error during fetch:', error.message);
+        //Vastaustarkistelu
+        if (taskInput.value === jsonData.answer) {
+          // Oikea vastaus
+          await handleCorrectAnswer(jsonData);
+          taskInput.value = "";
+        } else {
+          // Väärä vastaus
+          await handleWrongAnswer();
+          taskInput.value = "";
         }
+
+        // Siirrytään seuraavaan tehtävään
+        missionId++;
+        if (missionId <= 30) {
+          await getMission(missionId); // Ladataan seuraava tehtävä
+        } else {
+          alert("Kaikki tehtävät suoritettu!");
+        }
+
+        isAnswering = false; // Sallitaan seuraava syöte
       }
-    });
+    };
   } catch (error) {
-    console.error('Error during initial fetch:', error.message);
+    console.error("Error during fetch:", error.message);
   }
 }
 
-// Funktio, joka kutsuu tehtävien hakua asynkronisesti
-async function fetchAllMissions() {
-  for (let id = 1; id <= 30; id++) {
-    await getMission(id);
+async function handleCorrectAnswer(jsonData) {
+  try {
+    const bonusResponse = await fetch(
+      "https://timfabritius1.pythonanywhere.com/bonus/" + name + "/" + jsonData.pay
+    );
+    if (!bonusResponse.ok) throw new Error("Failed to fetch bonus data");
+    const bonusData = await bonusResponse.json();
+
+    const doneResponse = await fetch(
+      "https://timfabritius1.pythonanywhere.com/taskdone/" + name + "/" + missionId
+    );
+    if (!doneResponse.ok) throw new Error("Failed to mark task as done");
+
+    alert(bonusData.travelprompt); // Näytetään pelaajalle palautetta
+  } catch (error) {
+    console.error("Error during correct answer handling:", error.message);
   }
 }
 
-// Aloita tehtävien lataus
-fetchAllMissions();
+async function handleWrongAnswer() {
+  try {
+    const threatResponse = await fetch(
+      "https://timfabritius1.pythonanywhere.com/raiseThreat/" + name + "/5"
+    );
+    if (!threatResponse.ok) throw new Error("Failed to raise threat");
+    const threatData = await threatResponse.json();
+
+    console.log("Threat increased:", threatData); // Näytä uhkatason päivitys
+  } catch (error) {
+    console.error("Error during wrong answer handling:", error.message);
+  }
+}
+
+// Aloita tehtävä
+getMission(missionId);

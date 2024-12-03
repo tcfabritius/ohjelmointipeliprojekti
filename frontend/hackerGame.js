@@ -358,3 +358,4 @@ getCurrentLocation(name);
 modifyThreatBar();
 tableCreate();
 playerMenu();
+toggleMusic();
