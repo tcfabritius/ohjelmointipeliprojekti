@@ -12,8 +12,8 @@ function toggleMusic() {
 const backGroundMusic = document.getElementById('background-music');
 
 // Optional: Automatically start music when page loads
-window.onload = function() {
-    music.play();
+window.onload = function(backGroundMusic) {
+    music.play(backGroundMusic);
 };
 
 
