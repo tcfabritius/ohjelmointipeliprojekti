@@ -9,11 +9,11 @@ function toggleMusic() {
     }
 }
 
-const backGroundMusic = document.getElementById('background-music');
+const backgroundMusic = document.getElementById('background-music');
 
 // Optional: Automatically start music when page loads
-window.onload = function(backGroundMusic) {
-    music.play(backGroundMusic);
+window.onload = function(backgroundMusic) {
+    music.play(backgroundMusic);
 };
 
 
