@@ -9,18 +9,25 @@ function toggleMusic() {
     }
 }
 
-const backgroundMusic = document.getElementById('background-music');
-
-// Optional: Automatically start music when page loads
-window.onload = function(backgroundMusic) {
-    music.play(backgroundMusic);
-};
-
+// create player id
+async function initPlayer(name) {
+        try {
+            const responseP = await fetch(`http://timfabritius1.pythonanywhere.com/init/${name}`);
+            if (!responseP.ok) {
+                throw new Error("Failed to init player");
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+}
 
 // get current player location
 async function getCurrentLocation(name){
         try {
         const response = await fetch("https://timfabritius1.pythonanywhere.com/getLocation/"+name);
+        if (!response.ok) {
+            throw new Error("Failed to load location");
+        }
         const jsonData = await response.json();
         map.setView(new L.LatLng(jsonData.latitude_deg, jsonData.longitude_deg), 12);
         L.marker([jsonData.latitude_deg, jsonData.longitude_deg]).addTo(map);
@@ -37,15 +44,33 @@ locQuery.addEventListener("submit", async function changeLocation(evt) {
     const criteria = document.getElementById("icao").value;
     //console.log(criteria);
     try {
-
         const response = await fetch(`http://timfabritius1.pythonanywhere.com/matkusta/${name}/${criteria}`);
+        if (!response) {
+            throw new Error("Failed to load location data");
+        }
         const jsonData = await response.json();
         await tableCreate();
-
         // update map
         map.setView(new L.LatLng(jsonData.latitude_deg, jsonData.longitude_deg), 12);
         L.marker([jsonData.latitude_deg, jsonData.longitude_deg]).addTo(map);
         document.getElementById("icao").value = "";
+        const responseA = await fetch("http://timfabritius1.pythonanywhere.com/kentta/"+ criteria);
+        const airportData =await responseA.json();
+        const city = airportData.municipality;
+        const responseH = await fetch(`http://timfabritius1.pythonanywhere.com/hotelPrice/${city}`);
+        if (!response) {
+            throw new Error("Failed to load location data");
+        }
+        const hotelData = await responseH.json();
+        const playerChoise = confirm(`Do you want to book ${hotelData.name} : ${Math.floor(hotelData.prise)}`)
+        if (playerChoise === true){
+            await fetch(`http://timfabritius1.pythonanywhere.com/invoice/${name}/${Math.floor(hotelData.prise)}`);
+            // update player game status
+            threatX = 1;
+        }
+        else {
+            threatX = 2;
+        }
     } catch (error) {
         console.log(error.message);
     }
@@ -60,6 +85,9 @@ srcBtn.addEventListener("click", async function changeCountry(evt) {
     selectCountry.setAttribute("size", "7");
     try {
         const responseC = await fetch("http://timfabritius1.pythonanywhere.com/maat");
+        if (!responseC.ok) {
+            throw new Error("Failed to load countries data");
+        }
         const countriesData = await responseC.json();
         console.log(countriesData);
         let countries = countriesData.countries;
@@ -97,7 +125,10 @@ srcBtn.addEventListener("click", async function changeCountry(evt) {
 // get player data function
 async function getPlayer(name){
     try {
-        const response = await fetch("https://timfabritius1.pythonanywhere.com/pelaaja/"+name);
+        const response = await fetch("http://timfabritius1.pythonanywhere.com/tulosruutu/"+name);
+        if (!response.ok) {
+            throw new Error("Failed to load player data");
+        }
         const jsonData = await response.json();
         //console.log(jsonData)
         return jsonData;
@@ -206,6 +237,9 @@ async function newAirports(newCountry) {
     try {
         let airportLocation = newCountry;
         const response2 = await fetch(`http://timfabritius1.pythonanywhere.com/travel_menu/${name}/${airportLocation}`);
+        if (!response2.ok) {
+            throw new Error("Failed to load location airports");
+        }
         const countryData = await response2.json();
         //console.log(countryData);
         if (countryData.status === 404){
@@ -232,9 +266,15 @@ async function playerAirports() {
     let playerLocation = playerData.location;
     try {
         const response1 = await fetch("http://timfabritius1.pythonanywhere.com/kentta/"+ playerLocation);
+        if (!response1.ok) {
+            throw new Error("Failed to load player location data");
+        }
         const locationData = await response1.json();
         let airportLocation = locationData.iso_country;
         const response2 = await fetch(`http://timfabritius1.pythonanywhere.com/travel_menu/${name}/${airportLocation}`);
+        if (!response2.ok) {
+            throw new Error("Failed to load local airports");
+        }
         const countryData = await response2.json();
         return countryData;
     } catch (error) {
@@ -260,7 +300,7 @@ async function tableCreate() {
         row0.insertCell(0).innerHTML = playerData.id;
         row0.insertCell(0).innerHTML = "PLayer:";
         const row1 = tbl.insertRow();
-        row1.insertCell(0).innerHTML = "";
+        row1.insertCell(0).innerHTML = playerData.tehtavat;
         row1.insertCell(0).innerHTML = "Missions completed:";
         const row2 = tbl.insertRow();
         row2.insertCell(0).innerHTML = playerData.location;
@@ -297,6 +337,23 @@ async function playerMenu(newMenu) {
 
 
 //Main
+const name = prompt("Please type your name:");
+if (name !== ""){
+    initPlayer(name);
+    const backgroundMusic = document.getElementById('background-music');
+    document.body.addEventListener("click", () => {
+        if (backgroundMusic.paused) {
+            backgroundMusic.play()
+                .then(() => {
+                    console.log("Background music started!");
+                })
+                .catch(error => {
+                    console.error("Error playing music:", error);
+                });
+        }
+    });
+}
+let threatX = 1;
 getCurrentLocation(name);
 modifyThreatBar();
 tableCreate();

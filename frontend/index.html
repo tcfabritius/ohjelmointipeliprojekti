@@ -108,7 +108,7 @@ https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css
                 <div class="d-flex">
                     <div class="col-6 text-center">
                         <button id="srcBtn" class="bg-dark border-coloring text-coloring" style="padding: 0.1rem 3.5rem 0.1rem 3.5rem; border:solid 1px #5cd595; color: #5cd595;">
-                        Travel to</button>
+                        Choose country</button>
                     </div>
                     <div class="col-6 text-center">
                         <div class="d-flex">
@@ -141,14 +141,11 @@ https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css
     <audio id="background-music" loop>
         <source src="bgmusicexample.mp3" type="audio/mpeg">
     </audio>
-    <button onclick="toggleMusic()">Play/Pause Music</button>
 
 </main>
 <footer></footer>
 </div>
 <script>
-const name = prompt("Please type your name:");
-
 let locLatitude = 60.31826;
 let locLongitude = 24.94900;
 let map = L.map('custom-map').setView([locLatitude, locLongitude], 12);
