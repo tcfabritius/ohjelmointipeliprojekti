@@ -1,5 +1,22 @@
 'use strict';
 
+// Music
+function toggleMusic() {
+    if (music.paused) {
+        music.play();
+    } else {
+        music.pause();
+    }
+}
+
+const backgroundMusic = document.getElementById('background-music');
+
+// Optional: Automatically start music when page loads
+window.onload = function(backgroundMusic) {
+    music.play(backgroundMusic);
+};
+
+
 // get current player location
 async function getCurrentLocation(name){
         try {
@@ -284,3 +301,4 @@ getCurrentLocation(name);
 modifyThreatBar();
 tableCreate();
 playerMenu();
+toggleMusic();
