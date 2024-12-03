@@ -62,9 +62,10 @@ locQuery.addEventListener("submit", async function changeLocation(evt) {
             throw new Error("Failed to load location data");
         }
         const hotelData = await responseH.json();
-        const playerChoise = confirm(`Do you want to book ${hotelData.name} : ${Math.floor(hotelData.prise)}`)
+
+        const playerChoise = confirm(`Do you want to book ${hotelData.name} : ${Math.floor(hotelData.price)}`)
         if (playerChoise === true){
-            await fetch(`http://timfabritius1.pythonanywhere.com/invoice/${name}/${Math.floor(hotelData.prise)}`);
+            await fetch(`http://timfabritius1.pythonanywhere.com/invoice/${name}/${Math.floor(hotelData.price)}`);
             // update player game status
             threatX = 1;
         }
