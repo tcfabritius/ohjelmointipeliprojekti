@@ -1,5 +1,20 @@
 'use strict';
 
+// Music
+function toggleMusic() {
+    if (music.paused) {
+        music.play();
+    } else {
+        music.pause();
+    }
+}
+
+// Optional: Automatically start music when page loads
+window.onload = function() {
+    music.play();
+};
+
+
 // get current player location
 async function getCurrentLocation(name){
         try {
