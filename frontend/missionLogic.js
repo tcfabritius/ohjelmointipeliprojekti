@@ -1,14 +1,7 @@
+//This file handles the mission rotation logic.
+
 let missionId = 1; // Current mission ID
 let isAnswering = false; // Prevents multiple event triggers
-
-// Main function to loop through all missions
-async function startMissions() {
-  while (missionId <= 30) {
-    await getMission(missionId); // Wait for the mission to complete
-    missionId++;
-  }
-  alert("All missions completed!");
-}
 
 async function getMission(id) {
   const missionDiv = document.querySelector("#mission");
@@ -103,6 +96,15 @@ async function handleWrongAnswer() {
   {
     console.error("Error during wrong answer handling:", error.message);
   }
+}
+
+// Main function to loop through all missions
+async function startMissions() {
+  while (missionId <= 30) {
+    await getMission(missionId); // Wait for the mission to complete
+    missionId++;
+  }
+  alert("All missions completed!");
 }
 
 // Start the mission loop
