@@ -4,6 +4,7 @@
 //import { tableCreate } from "./hackerGame.js";
 
 let missionId = 1; // Current mission ID
+
 let isAnswering = false; // Prevents multiple event triggers
 
 async function getMission(id) {
@@ -46,7 +47,7 @@ function waitForAnswer(taskInput, jsonData) {
           // Correct answer
           await handleCorrectAnswer(jsonData);
           //external function to update table-content
-          //await tableCreate();
+          await tableCreate();
           console.log("Correct!")
           console.log("Player's answer:", taskInput.value.trim());
           console.log("Correct answer:", jsonData.answer.trim());
@@ -105,12 +106,24 @@ async function handleWrongAnswer() {
 
 // Main function to loop through all missions
 async function startMissions() {
-  while (missionId <= 30) {
+
+  const statusResponse = await fetch(`https://timfabritius1.pythonanywhere.com/tulosruutu/${name}`);
+
+    if (!statusResponse.ok)
+        throw new Error("Failed to fetch bonus data");
+
+    const statusData = await statusResponse.json();
+    missionId = parseInt(statusData.tehtavat)
+    missionId++;
+
+  while (missionId <= 30)
+  {
     await getMission(missionId); // Wait for the mission to complete
     missionId++;
   }
+
   alert("All missions completed!");
-}
+  }
 
 // Start the mission loop
 startMissions();
