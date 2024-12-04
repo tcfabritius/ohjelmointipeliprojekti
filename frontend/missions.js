@@ -19,7 +19,7 @@ async function getMission(id) {
 
     const jsonData = await response.json();
     missionDiv.innerHTML = jsonData.text; // Näytetään tehtävän teksti
-    taskInput.value = ""; // Tyhjennetään syötekenttä
+    //taskInput.value = ""; // Tyhjennetään syötekenttä
 
     // Kuunnellaan pelaajan vastausta
     taskInput.onkeypress = async function handleTask(event) {
@@ -28,14 +28,20 @@ async function getMission(id) {
         event.preventDefault();
 
         //Vastaustarkistelu
-        if (taskInput.value === jsonData.answer) {
+        if (taskInput.value.trim().toUpperCase() === jsonData.answer.trim().toUpperCase()) {
           // Oikea vastaus
           await handleCorrectAnswer(jsonData);
-          taskInput.value = "";
+          //taskInput.value = "";
+          console.log("Correct!")
+          console.log("Player's answer:", taskInput.value.trim());
+          console.log("Correct answer:", jsonData.answer.trim());
         } else {
           // Väärä vastaus
           await handleWrongAnswer();
-          taskInput.value = "";
+          //taskInput.value = "";
+                    console.log("sorry, Wrong")
+          console.log("Player's answer:", taskInput.value.trim());
+          console.log("Correct answer:", jsonData.answer.trim());
         }
 
         // Siirrytään seuraavaan tehtävään
