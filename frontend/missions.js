@@ -39,7 +39,7 @@ async function getMission(id) {
           // Väärä vastaus
           await handleWrongAnswer();
           //taskInput.value = "";
-                    console.log("sorry, Wrong")
+          console.log("sorry, Wrong")
           console.log("Player's answer:", taskInput.value.trim());
           console.log("Correct answer:", jsonData.answer.trim());
         }

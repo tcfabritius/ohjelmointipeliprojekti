@@ -12,7 +12,7 @@ async function startMissions() {
 
 async function getMission(id) {
   const missionDiv = document.querySelector("#mission");
-  const taskInput = document.querySelector("#tasks");
+  const taskInput = document.querySelector("#taskInput");
 
   if (!missionDiv || !taskInput) {
     console.error("Mission or task input element is missing!");
@@ -69,17 +69,18 @@ function waitForAnswer(taskInput, jsonData) {
 }
 
 async function handleCorrectAnswer(jsonData) {
-  try {
-    const bonusResponse = await fetch(
-      `https://timfabritius1.pythonanywhere.com/bonus/${name}/${jsonData.pay}`
-    );
-    if (!bonusResponse.ok) throw new Error("Failed to fetch bonus data");
-    const bonusData = await bonusResponse.json();
+  try
+  {
+    const bonusResponse = await fetch(`https://timfabritius1.pythonanywhere.com/bonus/${name}/${jsonData.pay}`);
 
-    const doneResponse = await fetch(
-      `https://timfabritius1.pythonanywhere.com/taskdone/${name}/${missionId}`
-    );
-    if (!doneResponse.ok) throw new Error("Failed to mark task as done");
+    if (!bonusResponse.ok)
+        throw new Error("Failed to fetch bonus data");
+
+    const bonusData = await bonusResponse.json();
+    const doneResponse = await fetch(`https://timfabritius1.pythonanywhere.com/taskdone/${name}/${missionId}`);
+
+    if (!doneResponse.ok)
+        throw new Error("Failed to mark task as done");
 
     alert(bonusData.travelprompt); // Show feedback to the player
   } catch (error) {
@@ -88,15 +89,18 @@ async function handleCorrectAnswer(jsonData) {
 }
 
 async function handleWrongAnswer() {
-  try {
-    const threatResponse = await fetch(
-      `https://timfabritius1.pythonanywhere.com/raiseThreat/${name}/5`
-    );
-    if (!threatResponse.ok) throw new Error("Failed to raise threat");
-    const threatData = await threatResponse.json();
+  try
+  {
+    const threatResponse = await fetch(`https://timfabritius1.pythonanywhere.com/raiseThreat/${name}/5`);
 
+    if (!threatResponse.ok)
+        throw new Error("Failed to raise threat");
+
+    const threatData = await threatResponse.json();
     console.log("Threat increased:", threatData); // Log the updated threat level
-  } catch (error) {
+  }
+  catch (error)
+  {
     console.error("Error during wrong answer handling:", error.message);
   }
 }
