@@ -283,7 +283,7 @@ async function playerAirports() {
     }
 }
 
-// player status table
+// player status table > needs export for external use
 async function tableCreate() {
     let clearDiv = document.getElementById("outerStatus");
     if(clearDiv.firstChild) {

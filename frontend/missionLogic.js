@@ -1,5 +1,8 @@
 //This file handles the mission rotation logic.
 
+//This needs to be here to access the function
+//import { tableCreate } from "./hackerGame.js";
+
 let missionId = 1; // Current mission ID
 let isAnswering = false; // Prevents multiple event triggers
 
@@ -42,6 +45,8 @@ function waitForAnswer(taskInput, jsonData) {
         if (taskInput.value === jsonData.answer) {
           // Correct answer
           await handleCorrectAnswer(jsonData);
+          //external function to update table-content
+          //await tableCreate();
           console.log("Correct!")
           console.log("Player's answer:", taskInput.value.trim());
           console.log("Correct answer:", jsonData.answer.trim());
