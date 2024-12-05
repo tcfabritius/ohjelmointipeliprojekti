@@ -1,14 +1,5 @@
 'use strict';
 
-// Music
-function toggleMusic() {
-    if (music.paused) {
-        music.play();
-    } else {
-        music.pause();
-    }
-}
-
 // create player id
 async function initPlayer(name) {
         try {
@@ -30,7 +21,7 @@ async function getCurrentLocation(name){
         }
         const jsonData = await response.json();
         map.setView(new L.LatLng(jsonData.latitude_deg, jsonData.longitude_deg), 12);
-        L.marker([jsonData.latitude_deg, jsonData.longitude_deg]).addTo(map);
+        marker = L.marker([jsonData.latitude_deg, jsonData.longitude_deg]).addTo(map);
     } catch (error) {
         console.log(error.message);
     }
@@ -50,9 +41,10 @@ locQuery.addEventListener("submit", async function changeLocation(evt) {
         }
         const jsonData = await response.json();
         await tableCreate();
+        await modifyThreatBar();
         // update map
         map.setView(new L.LatLng(jsonData.latitude_deg, jsonData.longitude_deg), 12);
-        L.marker([jsonData.latitude_deg, jsonData.longitude_deg]).addTo(map);
+        marker = L.marker([jsonData.latitude_deg, jsonData.longitude_deg]).addTo(map);
         document.getElementById("icao").value = "";
         const responseA = await fetch("http://timfabritius1.pythonanywhere.com/kentta/"+ criteria);
         const airportData =await responseA.json();
@@ -62,12 +54,16 @@ locQuery.addEventListener("submit", async function changeLocation(evt) {
             throw new Error("Failed to load location data");
         }
         const hotelData = await responseH.json();
+        if (hotelData.status === 200){
 
-        const playerChoise = confirm(`Do you want to book ${hotelData.name} : ${Math.floor(hotelData.price)}`)
-        if (playerChoise === true){
-            await fetch(`http://timfabritius1.pythonanywhere.com/invoice/${name}/${Math.floor(hotelData.price)}`);
+        const playerChoise = confirm(`Do you want to book ${hotelData.name}, price: ${Math.floor(hotelData.price)}`)
+        if (playerChoise === true) {
+            await fetch(
+                `http://timfabritius1.pythonanywhere.com/invoice/${name}/${Math.floor(
+                    hotelData.price)}`);
             // update player game status
             threatX = 1;
+        }
         }
         else {
             threatX = 2;
@@ -142,28 +138,38 @@ async function getPlayer(name){
 async function modifyThreatBar() {
     const threatBar = document.getElementById("threat-bar");
     const threatValue = document.getElementById("threat-value");
-    let tValue = 0;
-    let bar = 25; // start value 25
-    //let playerData = await getPlayer(name);
-    let threatChange = 20;//playerData.threat;
-
-        if ((threatChange - bar) > 75){
-          threatBar.style.width = "100%";
+    let bar = 30; // start value
+    const barWidth = {"0":"30%","10":"37%","20":"44%","30":"51%","40":"58%","50":"65%","60":"72%","70":"79%","80":"86%","90":"93%","100":"100%"};
+    let playerData = await getPlayer(name);
+    let threatChange = playerData.threat;
+    if (threatChange > 0) {
+        threatValue.innerHTML = "+" + threatChange + "%"
+    }
+    else {
+        threatValue.innerHTML = 0 + "%"
+    }
+    if ((threatChange - bar) >= 70){
+            threatBar.style.width = "100%";
+    }
+    else if ((threatChange + bar) < 30){
+            threatBar.style.width = "30%";
+    }
+    else {
+        for (let key in barWidth) {
+            if (threatChange.toString() in barWidth) {
+                threatBar.style.width = barWidth[threatChange.toString()];
+            }
+            else{
+                threatBar.style.width = barWidth[(threatChange-5).toString()];
+            }
         }
-        else if ((threatChange + bar) < 25){
-          threatBar.style.width = "25%";
-        }
-        else{
-        bar += threatChange;
-        tValue += threatChange;
-        threatBar.style.width = bar + "%";
-        }
+    }
         const coloring = document.getElementsByClassName("coloring");
         const borderColor = document.getElementsByClassName("border-coloring");
         const textColor = document.getElementsByClassName("text-coloring");
         const inputField = document.getElementById("icao");
 
-        if (bar >= 50) {
+        if (threatChange >= 50) {
             threatBar.style.backgroundColor = "#bcd65e";
             inputField.style.boxShadow = "0 1px 1px 1px #bcd65e inset";
             document.body.style.background = "linear-gradient(black, #bcd65e)";
@@ -177,7 +183,7 @@ async function modifyThreatBar() {
                 textColor[i].style.color = "#bcd65e";
             }
         }
-        if (bar >= 80) {
+        if (threatChange >= 80) {
             threatBar.style.backgroundColor = "#d65e5e";
             inputField.style.boxShadow = "0 1px 1px 1px #d65e5e inset";
             document.body.style.background = "linear-gradient(black, #d65e5e)";
@@ -191,14 +197,28 @@ async function modifyThreatBar() {
                 textColor[i].style.color = "#d65e5e";
             }
         }
+        if (threatChange < 50) {
+            threatBar.style.backgroundColor = "#5cd595";
+            inputField.style.boxShadow = "0 1px 1px 1px #5cd595 inset";
+            document.body.style.background = "linear-gradient(black, #5cd595)";
+            for(let i = 0; i < coloring.length; i++){
+                coloring[i].style.backgroundColor = "#5cd595";
+            }
+            for(let i = 0; i < borderColor.length; i++){
+                borderColor[i].style.borderColor = "#5cd595";
+            }
+            for(let i = 0; i < textColor.length; i++){
+                textColor[i].style.color = "#5cd595";
+            }
+        }
 }
 
 // create airport list
 async function createAirportList(listData){
-        let selectAirports =document.createElement("select");
+        let selectAirports =document.createElement("div");
         selectAirports.setAttribute("id", "selectA");
-        selectAirports.setAttribute("size", "7");
         selectAirports.classList.add("container");
+
         let airportsData;
         if (listData === undefined) {
             airportsData = await playerAirports();
@@ -209,25 +229,53 @@ async function createAirportList(listData){
         console.log(airportsData);
         let airports = airportsData.airports;
         for (let i = 0; i < airports.length; i++){
-            let option = document.createElement("option");
+            let option = document.createElement("div");
             option.classList.add("row");
-            option.classList.add("countryAports");
 
             let value1 = document.createElement("div");
-            value1.classList.add("col-4");
-            value1.classList.add("ps-0");
+            value1.classList.add("col-2");
+            value1.classList.add("px-0");
             let value1col = document.createElement("p");
+            value1col.classList.add("mb-0");
             value1col.appendChild(document.createTextNode(airports[i].icao_code + " "));
             value1.appendChild(value1col);
 
             let value2 = document.createElement("div");
-            value2.classList.add("col-8");
+            value2.classList.add("col-10");
             let value2col = document.createElement("p");
+            value2col.classList.add("mb-0");
             value2col.appendChild(document.createTextNode(airports[i].name));
             value2.appendChild(value2col);
 
+            let value0 = document.createElement("div");
+            value0.classList.add("col-2");
+            value0.classList.add("ps-0");
+            let value0col = document.createElement("p");
+            value0col.classList.add("mb-0");
+            value0col.appendChild(document.createTextNode( "   "));
+            value0.appendChild(value0col);
+
+            let value3 = document.createElement("div");
+            value3.classList.add("col-5");
+            //value3.classList.add("ps-0");
+            let value3col = document.createElement("p");
+            value3col.classList.add("mb-0");
+            value3col.appendChild(document.createTextNode("Price: " +airports[i].price + " "));
+            value3.appendChild(value3col);
+
+            let value4 = document.createElement("div");
+            value4.classList.add("col-5");
+            let value4col = document.createElement("p");
+            value4col.classList.add("mb-0");
+            value4col.appendChild(document.createTextNode("CO2 value: "+airports[i].co2_emissions));
+            value4.appendChild(value4col);
+
             option.appendChild(value1);
             option.appendChild(value2);
+            option.appendChild(value0);
+            option.appendChild(value3);
+            option.appendChild(value4);
+
             selectAirports.appendChild(option);
         }
         return selectAirports;
@@ -347,6 +395,7 @@ if (name !== ""){
             backgroundMusic.play()
                 .then(() => {
                     console.log("Background music started!");
+                    backgroundMusic.volume = 0.1;
                 })
                 .catch(error => {
                     console.error("Error playing music:", error);
@@ -359,5 +408,6 @@ getCurrentLocation(name);
 modifyThreatBar();
 tableCreate();
 playerMenu();
-toggleMusic();
+
+
 
