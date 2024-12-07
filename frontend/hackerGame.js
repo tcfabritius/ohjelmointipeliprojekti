@@ -61,13 +61,15 @@ locQuery.addEventListener("submit", async function changeLocation(evt) {
             await fetch(
                 `http://timfabritius1.pythonanywhere.com/invoice/${name}/${Math.floor(
                     hotelData.price)}`);
-            // update player game status
+            await tableCreate();
             threatX = 1;
         }
         }
         else {
             threatX = 2;
         }
+
+
     } catch (error) {
         console.log(error.message);
     }
@@ -136,6 +138,7 @@ async function getPlayer(name){
 
 // thread bar & change color function
 async function modifyThreatBar() {
+    console.log('second function called!!')
     const threatBar = document.getElementById("threat-bar");
     const threatValue = document.getElementById("threat-value");
     let bar = 30; // start value
@@ -383,6 +386,8 @@ async function playerMenu(newMenu) {
     menu.append(currentMenu);
 }
 
+// function winnerScreen
+
 
 
 //Main
@@ -408,6 +413,3 @@ getCurrentLocation(name);
 modifyThreatBar();
 tableCreate();
 playerMenu();
-
-
-

@@ -1,7 +1,5 @@
 //This file handles the mission rotation logic.
 
-//This needs to be here to access the function
-//import { tableCreate } from "./hackerGame.js";
 
 let missionId = 1; // Current mission ID
 
@@ -97,6 +95,7 @@ async function handleWrongAnswer() {
 
     const threatData = await threatResponse.json();
     console.log("Threat increased:", threatData); // Log the updated threat level
+    modifyThreatBar(); //access a function in hackerGame.js
   }
   catch (error)
   {
