@@ -70,6 +70,7 @@ locQuery.addEventListener("submit", async function changeLocation(evt) {
 
 
 
+
     } catch (error) {
         console.log(error.message);
     }
