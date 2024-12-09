@@ -88,7 +88,8 @@ async function handleCorrectAnswer(jsonData) {
 async function handleWrongAnswer() {
   try
   {
-    const threatResponse = await fetch(`https://timfabritius1.pythonanywhere.com/raiseThreat/${name}/5`);
+    let threat = threatX * 5;
+    const threatResponse = await fetch(`https://timfabritius1.pythonanywhere.com/raiseThreat/${name}/${threat}`);
 
     if (!threatResponse.ok)
         throw new Error("Failed to raise threat");
