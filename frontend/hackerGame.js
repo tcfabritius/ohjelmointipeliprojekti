@@ -56,18 +56,18 @@ locQuery.addEventListener("submit", async function changeLocation(evt) {
         const hotelData = await responseH.json();
         if (hotelData.status === 200){
 
-        const playerChoise = confirm(`Do you want to book ${hotelData.name}, price: ${Math.floor(hotelData.price)}`)
-        if (playerChoise === true) {
-            await fetch(
-                `http://timfabritius1.pythonanywhere.com/invoice/${name}/${Math.floor(
-                    hotelData.price)}`);
-            await tableCreate();
-            threatX = 1;
+            const playerChoise = confirm(`Do you want to book ${hotelData.name}, price: ${Math.floor(hotelData.price)}`)
+            if (playerChoise === true) {
+                await fetch(
+                    `http://timfabritius1.pythonanywhere.com/invoice/${name}/${Math.floor(
+                        hotelData.price)}`);
+                await tableCreate();
+                threatX = 1;
+            }else {
+                threatX = 2;
+            }
         }
-        }
-        else {
-            threatX = 2;
-        }
+
 
 
     } catch (error) {
