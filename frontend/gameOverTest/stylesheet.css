@@ -1,0 +1,45 @@
+/* Modal content styling */
+.modal-content {
+    position: relative; /*Maintain element relativity*/
+    text-align: center;
+    width: 512px;
+    height: 512px;
+    margin: auto;
+}
+
+/* Skull and bones images */
+#crossbones, #skullJaw, #skullTop {
+    position: absolute; /*Layered on top of each other*/
+    top: 5rem;
+    left: 0;
+    width: 100%; /*Uniform scaling*/
+    height: auto;
+}
+
+#restartButton {
+    position: absolute;
+    top: 65%;
+    left: 45.5%;
+    width: 10rem;
+    height: 3rem;
+}
+
+/* Z-index management*/
+#crossbones {
+    /*Lowest index*/
+    z-index: 1;
+}
+
+#skullJaw {
+    /*Middle*/
+    z-index: 2;
+}
+
+#skullTop {
+    /*Top*/
+    z-index: 3;
+}
+
+body {
+  background-color: #222222;
+}
