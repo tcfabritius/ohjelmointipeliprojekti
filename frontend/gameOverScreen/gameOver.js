@@ -49,7 +49,7 @@ restartButton.addEventListener("click", () => {
     // Insert restart game logic here
     console.log("Game restarted");
     //reload();
-    window.location.href = '../index.html'
+    window.top.location.href = '../index.html'
 });
 
 // Simulate game over (for testing, 1s)
