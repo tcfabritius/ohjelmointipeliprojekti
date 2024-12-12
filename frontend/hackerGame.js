@@ -520,9 +520,16 @@ function failureScreen() {
     document.getElementById("failure").innerHTML="<object type='text/html' data='gameOverScreen/gameOverScreen.html' ></object>";
 }
 
+/*
+//Korjaisiko tämä?
 function reload() {
+    document.getElementById("failure").remove();
+    document.getElementById("game_page").style.width = "100%";
+    document.getElementById("game_page").style.height = "100%";
+    document.getElementById("game_page").innerHTML="<object type='text/html' data='index.html' ></object>";
     window.location.href = "../index.html";
 }
+ */
 
 //Main
 const name = prompt("Please type your name:");
