@@ -41,13 +41,19 @@ locQuery.addEventListener("submit", async function changeLocation(evt) {
         }
         const jsonData = await response.json();
 
+        //Losescreen change 2.5
+        if (jsonData.travelled === false) {
+            const delResponse = await fetch(`https://timfabritius1.pythonanywhere.com/delete/${name}`)
+            window.location.href = 'gameOverScreen/gameOverScreen.html';
+        }
+
         //Losescreen change 2
-        const statusResponse = await fetch(`https://timfabritius1.pythonanywhere.com/raiseThreat/${name}`);
+        /*const statusResponse = await fetch(`https://timfabritius1.pythonanywhere.com/raiseThreat/${name}`);
         const statusData = await statusResponse.json();
         if (statusData.money <= 0){
             const delResponse = await fetch(`https://timfabritius1.pythonanywhere.com/delete/${name}`)
             window.location.href = 'gameOverScreen/gameOverScreen.html';
-        }
+        }*/
 
         await tableCreate();
         await modifyThreatBar();
