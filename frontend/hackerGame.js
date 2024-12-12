@@ -42,22 +42,26 @@ locQuery.addEventListener("submit", async function changeLocation(evt) {
         const jsonData = await response.json();
         await tableCreate();
         await modifyThreatBar();
+
         // update map
         map.setView(new L.LatLng(jsonData.latitude_deg, jsonData.longitude_deg), 12);
         marker = L.marker([jsonData.latitude_deg, jsonData.longitude_deg]).addTo(map);
+
         document.getElementById("icao").value = "";
         const responseA = await fetch("http://timfabritius1.pythonanywhere.com/kentta/"+ criteria);
         const airportData =await responseA.json();
+
+        // get hotel
         const city = airportData.municipality;
         const responseH = await fetch(`http://timfabritius1.pythonanywhere.com/hotelPrice/${city}`);
-        if (!response) {
+        if (!responseH) {
             throw new Error("Failed to load location data");
         }
         const hotelData = await responseH.json();
         if (hotelData.status === 200){
 
-            const playerChoise = confirm(`Do you want to book ${hotelData.name}, price: ${Math.floor(hotelData.price)}`)
-            if (playerChoise === true) {
+            const playerChoice = confirm(`Do you want to book ${hotelData.name}, price: ${Math.floor(hotelData.price)}`)
+            if (playerChoice === true) {
                 await fetch(
                     `http://timfabritius1.pythonanywhere.com/invoice/${name}/${Math.floor(
                         hotelData.price)}`);
@@ -67,10 +71,6 @@ locQuery.addEventListener("submit", async function changeLocation(evt) {
                 threatX = 2;
             }
         }
-
-
-
-
     } catch (error) {
         console.log(error.message);
     }
@@ -89,7 +89,8 @@ srcBtn.addEventListener("click", async function changeCountry(evt) {
             throw new Error("Failed to load countries data");
         }
         const countriesData = await responseC.json();
-        console.log(countriesData);
+
+        //console.log(countriesData);
         let countries = countriesData.countries;
         for (let i = 0; i < countries.length; i++){
             let option = document.createElement("option");
@@ -98,25 +99,26 @@ srcBtn.addEventListener("click", async function changeCountry(evt) {
             selectCountry.appendChild(option);
         }
             let clearDiv = document.getElementById("outerMenu");
-    if (clearDiv.firstChild) {
-        clearDiv.removeChild(clearDiv.firstChild);
-    }
-    let menuDiv = document.createElement("div");
-    menuDiv.setAttribute("id", "menu");
-    clearDiv.appendChild(menuDiv);
-    menu.append(selectCountry);
-    //get player selection
-    selectCountry.onchange = function() {
-        let selectedOption = selectCountry.options[selectCountry.selectedIndex];
-        let countryName = selectedOption.value;
-        //console.log(countryName);
-    for (let i = 0; i < countries.length; i++){
-        if (countries[i].name  === countryName ){
-            //console.log(countries[i].iso_country);
-            newAirports(countries[i].iso_country);
+        if (clearDiv.firstChild) {
+            clearDiv.removeChild(clearDiv.firstChild);
         }
-    }
-    }
+        let menuDiv = document.createElement("div");
+        menuDiv.setAttribute("id", "menu");
+        clearDiv.appendChild(menuDiv);
+        menu.append(selectCountry);
+
+        //get player selection
+        selectCountry.onchange = function() {
+            let selectedOption = selectCountry.options[selectCountry.selectedIndex];
+            let countryName = selectedOption.value;
+            //console.log(countryName);
+        for (let i = 0; i < countries.length; i++){
+            if (countries[i].name  === countryName ){
+                //console.log(countries[i].iso_country);
+                newAirports(countries[i].iso_country);
+            }
+        }
+        }
     } catch (error) {
         console.log(error.message);
     }
@@ -154,6 +156,7 @@ async function modifyThreatBar() {
     }
     if ((threatChange - bar) >= 70){
             threatBar.style.width = "100%";
+            failureScreen();
     }
     else if ((threatChange + bar) < 30){
             threatBar.style.width = "30%";
@@ -388,8 +391,110 @@ async function playerMenu(newMenu) {
 }
 
 // function winnerScreen
+function winnerScreen() {
+    //set canvas
+    document.getElementById("mission").remove();
+    document.getElementById("tasks").remove();
+    document.querySelector("canvas").style.width = "432px";
+    document.querySelector("canvas").style.height = "192px";
+    const canvas = document.querySelector("canvas"),
+    ctx = canvas.getContext("2d");
 
+    // size of the canvas
+    canvas.width = window.innerWidth/1.6;
+    console.log(window.innerWidth/1.6);
+    if (window.innerWidth/1.6 < 432){
+        canvas.width = 432;
+    }
+    canvas.height = window.innerHeight/2;
+    if (window.innerHeight/2 < 192){
+        canvas.height = 192;
+    }
 
+    // draw drops
+    let numbers = "0101010111001100001111100100101001001101000111001010001010001010010100010010101010010101000101110110011110110010110101001000101000110100101001011100110";
+    numbers = numbers.split("");
+    // columns
+    let fontSize = 12,
+        columns = canvas.width / fontSize;
+    const drops = [];
+    for (let i = 0; i < columns; i++) {
+      drops[i] = 1;
+    }
+    function drawBackground() {
+        ctx.fillStyle = "rgba(0, 0, 0, .1)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.font = "12px serif";
+        for (let i = 0; i < drops.length; i++) {
+            let text = numbers[Math.floor(Math.random() * numbers.length)];
+            ctx.fillStyle = "#0f0";
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+            drops[i]++;
+            if (drops[i] * fontSize > canvas.height && Math.random() > .95) {
+            drops[i] = 0;
+             }
+        }
+    }
+
+    // draw success text
+    let xPos = 0;
+    //console.log(canvas.width);
+    let textS = "SUCCESS!";
+    let i = 1;
+    const grad=ctx.createLinearGradient(0,0,canvas.width/1.5,0);
+    grad.addColorStop(0, "lime");
+    grad.addColorStop(1, "#93E9BE");
+    function textH1() {
+        ctx.font = "4.5vw serif";
+        ctx.textBaseline = "hanging";
+        ctx.strokeStyle = grad;
+        let textH = textS.substr(0, i);
+        ctx.strokeText(textH, canvas.width/3, canvas.height/5);
+        if (i <= textS.length){
+            setTimeout(textH1, 6000);
+            i++;
+        }
+        else{
+            setTimeout(textH1, 0);
+        }
+    }
+
+    // draw credits text
+    function credits() {
+        ctx.font = "2.5vw serif";
+        ctx.textBaseline = "hanging";
+        ctx.strokeStyle = grad;
+        ctx.strokeText("Thank you for playing our game.", xPos+(canvas.width*1.22), canvas.height/2.5);
+        ctx.strokeText("Tim Fabritius", xPos+(canvas.width*1.36), canvas.height/1.79);
+        ctx.strokeText("Mikko Laakkonen", xPos+(canvas.width*1.32), canvas.height/1.49);
+        ctx.strokeText("Joni Oksanen", xPos+(canvas.width*1.36), canvas.height/1.28);
+        ctx.strokeText("Svetlana Kekkonen-Mattila", xPos+(canvas.width*1.26), canvas.height/1.12);
+        if (window.innerWidth/1.6 < 700){
+            xPos-= 0.3;
+        }
+        else{
+            xPos-= 0.7;
+            //console.log(xPos);
+        }
+        if(xPos < -(canvas.width*1.6)) {
+            xPos = canvas.width/40;
+        }
+    }
+
+// Loop animations
+setInterval (textH1, 1000);
+setInterval (credits, 35);
+setInterval(drawBackground, 33);
+}
+
+// failureScreen
+function failureScreen() {
+    //set canvas
+    document.getElementById("game_page").remove();
+    document.getElementById("failure").style.width = "100%";
+    document.getElementById("failure").style.height = "655px";
+    document.getElementById("failure").innerHTML="<object type='text/html' data='gameOverTest/boneAnimTest.html' ></object>";
+}
 
 //Main
 const name = prompt("Please type your name:");

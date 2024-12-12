@@ -121,8 +121,8 @@ async function startMissions() {
     await getMission(missionId); // Wait for the mission to complete
     missionId++;
   }
-
-  alert("All missions completed!");
+  console.log("All missions completed!");
+  winnerScreen();
   }
 
 // Start the mission loop
