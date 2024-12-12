@@ -17,11 +17,20 @@
 }
 
 #restartButton {
+    background-color: #0b0b0b;
+    color: #14a44d;
+    border: none;
     position: absolute;
-    top: 65%;
-    left: 45.5%;
+    top: 5%;
+    left: 44%;
     width: 10rem;
     height: 3rem;
+    border-radius: 0.25rem;
+}
+
+#restartButton:hover {
+    background-color: #194935;
+    color: #1cf372;
 }
 
 /* Z-index management*/
@@ -40,6 +49,8 @@
     z-index: 3;
 }
 
+/*
 body {
   background-color: #222222;
 }
+ */
