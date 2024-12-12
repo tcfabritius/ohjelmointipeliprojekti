@@ -493,7 +493,7 @@ function failureScreen() {
     document.getElementById("game_page").remove();
     document.getElementById("failure").style.width = "100%";
     document.getElementById("failure").style.height = "655px";
-    document.getElementById("failure").innerHTML="<object type='text/html' data='gameOverTest/boneAnimTest.html' ></object>";
+    document.getElementById("failure").innerHTML="<object type='text/html' data='gameOverScreen/boneAnimTest.html' ></object>";
 }
 
 function reload() {
