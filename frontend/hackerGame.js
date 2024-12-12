@@ -476,7 +476,7 @@ function winnerScreen() {
             xPos-= 0.7;
             //console.log(xPos);
         }
-        if(xPos < -(canvas.width*1.6)) {
+        if(xPos < -(canvas.width*1.8)) {
             xPos = canvas.width/40;
         }
     }
