@@ -25,7 +25,7 @@ function animateSkull() {
         if (!startTime) startTime = time;
 
         //Duration (currently 1 second)
-        const progress = (time - startTime) / 1000;
+        const progress = (time - startTime) / 550;
 
         // Creates a looping effect
         const t = Math.abs(Math.sin(progress * Math.PI));
@@ -49,7 +49,8 @@ function animateSkull() {
 
     // Insert restart game logic here
     console.log("Game restarted");
+    reload();
 });
 
 // Simulate game over (for testing, 1s)
-setTimeout(gameOverModal, 1000);
+ setTimeout(gameOverModal, 1000);

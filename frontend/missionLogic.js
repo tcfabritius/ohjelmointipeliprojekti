@@ -79,7 +79,7 @@ async function handleCorrectAnswer(jsonData) {
     if (!doneResponse.ok)
         throw new Error("Failed to mark task as done");
 
-    alert(bonusData.travelprompt); // Show feedback to the player
+    alert(jsonData.travelprompt); // Show feedback to the player
   } catch (error) {
     console.error("Error during correct answer handling:", error.message);
   }

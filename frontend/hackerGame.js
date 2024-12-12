@@ -496,6 +496,10 @@ function failureScreen() {
     document.getElementById("failure").innerHTML="<object type='text/html' data='gameOverTest/boneAnimTest.html' ></object>";
 }
 
+function reload() {
+    window.location.href = "../index.html";
+}
+
 //Main
 const name = prompt("Please type your name:");
 if (name !== ""){
