@@ -48,8 +48,9 @@ function animateSkull() {
     modal.style.display = "none";
 
     // Insert restart game logic here
+        window.location.href = '../index.html'
     console.log("Game restarted");
-    reload();
+    //reload();
 });
 
 // Simulate game over (for testing, 1s)

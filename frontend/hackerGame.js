@@ -40,6 +40,15 @@ locQuery.addEventListener("submit", async function changeLocation(evt) {
             throw new Error("Failed to load location data");
         }
         const jsonData = await response.json();
+
+        //Losescreen change 2
+        const statusResponse = await fetch(`https://timfabritius1.pythonanywhere.com/raiseThreat/${name}`);
+        const statusData = await statusResponse.json();
+        if (statusData.money <= 0){
+            const delResponse = await fetch(`https://timfabritius1.pythonanywhere.com/delete/${name}`)
+            window.location.href = 'gameOverScreen/gameOverScreen.html';
+        }
+
         await tableCreate();
         await modifyThreatBar();
 
@@ -65,6 +74,15 @@ locQuery.addEventListener("submit", async function changeLocation(evt) {
                 await fetch(
                     `http://timfabritius1.pythonanywhere.com/invoice/${name}/${Math.floor(
                         hotelData.price)}`);
+
+                //Losescreen change 3
+                const statusResponse = await fetch(`https://timfabritius1.pythonanywhere.com/raiseThreat/${name}`);
+                const statusData = await statusResponse.json();
+                if (statusData.money <= 0){
+                    const delResponse = await fetch(`https://timfabritius1.pythonanywhere.com/delete/${name}`)
+                    window.location.href = 'gameOverScreen/gameOverScreen.html';
+                }
+
                 await tableCreate();
                 threatX = 1;
             }else {
@@ -493,7 +511,7 @@ function failureScreen() {
     document.getElementById("game_page").remove();
     document.getElementById("failure").style.width = "100%";
     document.getElementById("failure").style.height = "655px";
-    document.getElementById("failure").innerHTML="<object type='text/html' data='gameOverScreen/boneAnimTest.html' ></object>";
+    document.getElementById("failure").innerHTML="<object type='text/html' data='gameOverScreen/gameOverScreen.html' ></object>";
 }
 
 function reload() {

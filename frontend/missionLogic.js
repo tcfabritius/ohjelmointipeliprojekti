@@ -89,7 +89,15 @@ async function handleWrongAnswer() {
   try
   {
     let threat = threatX * 5;
+
+    //Losescreen change 1
     const threatResponse = await fetch(`https://timfabritius1.pythonanywhere.com/raiseThreat/${name}/${threat}`);
+    const statusResponse = await fetch(`https://timfabritius1.pythonanywhere.com/raiseThreat/${name}`);
+    const statusData = await statusResponse.json();
+    if (statusData.threat >= 100) {
+      const delResponse = await fetch(`https://timfabritius1.pythonanywhere.com/delete/${name}`)
+      window.location.href = 'gameOverScreen/gameOverScreen.html';
+    }
 
     if (!threatResponse.ok)
         throw new Error("Failed to raise threat");
