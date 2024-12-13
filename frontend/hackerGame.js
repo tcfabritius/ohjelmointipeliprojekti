@@ -378,7 +378,7 @@ async function tableCreate() {
         tbl.style.width = "100%";
         const row0 = tbl.insertRow();
         row0.insertCell(0).innerHTML = playerData.id;
-        row0.insertCell(0).innerHTML = "PLayer:";
+        row0.insertCell(0).innerHTML = "Player:";
         const row1 = tbl.insertRow();
         row1.insertCell(0).innerHTML = playerData.tehtavat;
         row1.insertCell(0).innerHTML = "Missions completed:";
