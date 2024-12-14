@@ -44,12 +44,13 @@ function animateSkull() {
 }
 
 // Restart button functionality
-restartButton.addEventListener("click", () => {
+restartButton.addEventListener("click", async () => {
     modal.style.display = "none";
     // Insert restart game logic here
     console.log("Game restarted");
-    //reload();
-    window.top.location.href = '../index.html'
+    //reload
+    window.top.location.href = '../index.html';
+    await tableCreate();
 });
 
 // Simulate game over (for testing, 1s)

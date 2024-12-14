@@ -104,7 +104,7 @@ async function handleWrongAnswer() {
 
     const threatData = await threatResponse.json();
     console.log("Threat increased:", threatData); // Log the updated threat level
-    modifyThreatBar(); //access a function in hackerGame.js
+    await modifyThreatBar(); //access a function in hackerGame.js
   }
   catch (error)
   {

@@ -12,6 +12,18 @@ async function initPlayer(name) {
         }
 }
 
+// remove player id
+async function removePlayer(name) {
+        try {
+            const responseR = await fetch(`http://timfabritius1.pythonanywhere.com/delete/${name}`);
+            if (!responseR.ok) {
+                throw new Error("Failed to remove player");
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+}
+
 // get current player location
 async function getCurrentLocation(name){
         try {
@@ -46,14 +58,6 @@ locQuery.addEventListener("submit", async function changeLocation(evt) {
             const delResponse = await fetch(`https://timfabritius1.pythonanywhere.com/delete/${name}`)
             window.location.href = 'gameOverScreen/gameOverScreen.html';
         }
-
-        //Losescreen change 2
-        /*const statusResponse = await fetch(`https://timfabritius1.pythonanywhere.com/raiseThreat/${name}`);
-        const statusData = await statusResponse.json();
-        if (statusData.money <= 0){
-            const delResponse = await fetch(`https://timfabritius1.pythonanywhere.com/delete/${name}`)
-            window.location.href = 'gameOverScreen/gameOverScreen.html';
-        }*/
 
         await tableCreate();
         await modifyThreatBar();
@@ -180,7 +184,9 @@ async function modifyThreatBar() {
     }
     if ((threatChange - bar) >= 70){
             threatBar.style.width = "100%";
-            failureScreen();
+            window.location.href = 'gameOverScreen/gameOverScreen.html';
+            await removePlayer(name);
+            //failureScreen();
     }
     else if ((threatChange + bar) < 30){
             threatBar.style.width = "30%";
@@ -511,9 +517,8 @@ setInterval (credits, 35);
 setInterval(drawBackground, 33);
 }
 
-// failureScreen
+// alternative solution
 function failureScreen() {
-    //set canvas
     document.getElementById("game_page").remove();
     document.getElementById("failure").style.width = "100%";
     document.getElementById("failure").style.height = "655px";
@@ -539,6 +544,13 @@ if (name !== ""){
     });
 }
 let threatX = 1;
+
+const instructionsModal = document.getElementById("instructions");
+const instructionsBtn = document.getElementById("instructionsBtn");
+instructionsModal.addEventListener("shown.bs.modal", function () {
+  instructionsBtn.focus()
+});
+
 getCurrentLocation(name);
 modifyThreatBar();
 tableCreate();
